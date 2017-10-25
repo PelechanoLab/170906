@@ -15,5 +15,4 @@ END{
 	for (i=1; i<=nf; i++) {
 		printf("%s\n",row[i])
 	}
-	exit(0)
 }
