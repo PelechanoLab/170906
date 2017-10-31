@@ -43,4 +43,4 @@ samtools index $outdir/mapping/allSamples_sorted.bam
 #identify variants
 java -jar /sw/apps/bioinfo/GATK/3.7/GenomeAnalysisTK.jar -T HaplotypeCaller -R $ref -I $outdir/mapping/allSamples_sorted.bam -o $outdir/allSamples.vcf
 #extract info from vcf file
-
+./transpose_vcf.sh $outdir/allSamples.vcf > $outdir/allSamplesVariants.txt
