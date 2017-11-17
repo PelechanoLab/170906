@@ -8,7 +8,7 @@ OPTIND=1
 while getopts "hd:i:o:r:" opt; do
         case $opt in
         h) 
-                echo "Usage: script.sh -i <input raw data directory> -d <sequence index> -o <output directory>"
+                echo "Usage: script.sh -d <index info> -i <input raw data directory> -o <output directory> -r <reference_genome.fa>"
                 exit 0
                 ;;
         d) index=$OPTARG;;
@@ -38,6 +38,7 @@ mkdir $outdir/mapping
 samtools merge $outdir/mapping/allSamples.bam $outdir/mapping/*bam
 #sort the large bam file
 samtools sort -o $outdir/mapping/allSamples_sorted.bam $outdir/mapping/allSamples.bam
+rm $outdir/mapping/allSamples.bam
 #index the large bam file
 samtools index $outdir/mapping/allSamples_sorted.bam
 #identify variants
