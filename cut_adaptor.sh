@@ -7,7 +7,7 @@ module load samtools
 while getopts "hr:i:o:" opt; do
         case $opt in
         h) 
-                echo "Usage: demultiplex.sh -i <input directory> -d <sequence settings> -x 1,1 -o <output directory>"
+                echo "Usage: cut_adaptor.sh -r <reference genmoe fasta file> -i <input directory> -o <output directory>"
                 exit 0
                 ;;
         r) ref=$OPTARG;;
@@ -38,4 +38,5 @@ for fq1 in $indir/*R1_001.fastq.gz; do
 	cutadapt -a "GATCGGAAGAGCACACGTCTGAACTCCAGTCAC" -A "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT" --match-read-wildcards --nextseq-trim=20 -o $cutfq1 -p $cutfq2 $fq1 $fq2 > $indir/cutadapt_$s.log
 	bwa mem -R '@RG\tID:'$s'\tSM:'$s'' $ref $cutfq1 $cutfq2 > $outdir/$s.sam
 	samtools view -b -F 4 -o $outdir/$s.bam $outdir/$s.sam
+	rm $outdir/$s.sam
 done
